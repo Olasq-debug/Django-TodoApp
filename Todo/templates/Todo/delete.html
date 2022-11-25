@@ -1,0 +1,10 @@
+{% extends 'Todo/base.html' %} 
+{% block content %}  
+<a href = "{% url 'home' %}"> Home Page</a>
+<form action="" method="post">
+    {% csrf_token %}
+    <p> Are you sure you wants to delete? "{{delete}}"</p>
+    <button type = 'submit'> Delete</button>
+</form>
+
+{% endblock content %}

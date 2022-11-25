@@ -1,0 +1,45 @@
+{% extends 'Todo/base.html' %}
+{% block content %}
+{% if request.user.is_authenticated %}  
+<p> {{request.user}}</p>
+<a href = "{% url 'logout' %}">logout</a>
+{% else %}
+<a href = "{% url 'login' %}">login</a>
+<a href = "{% url 'register' %}">Register</a>> </a>
+{% endif %}
+<div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class 'alert alert-{{ message.tags }}'>
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+<h1> My Todo List</h1>
+<a href = "{% url 'task-create' %}">Add Item</a></br>
+<p> You have {{count}} task to complete </p>
+<form action="" method="GET">
+    <input type="text" name = 'search-area' value = "{{search_input}}" >
+    <input type="submit" value = "Search">
+</form>
+
+<table>
+    <tr>
+        <th> Items </th>
+    </tr>
+{% for Todo in Todos %}
+<tr>
+    <td> {{ Todo.title }} </td>
+    <td><a href = "{% url 'details' Todo.id %}"> View</a></td>
+    <td><a href = "{% url 'task-update' Todo.id %}"> Edit </a></td>
+    <td><a href="{% url 'task-delete' Todo.id %}">Delete</a></td>
+</tr>
+{% empty %} 
+ <h3> No item listed </h3>
+    
+{% endfor %}
+</table>
+
+
+{% endblock %}
